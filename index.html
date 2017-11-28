@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.9.0/css/tachyons.min.css"/>
+  <style>
+
+    .box-2 {
+      opacity: 0;
+      transition: opacity .3s;
+      transition-delay: .2s;
+    }
+    .box-2.visible {
+      opacity: 1;
+    }
+
+    .box-3 {
+      transform: translateX(-100%);
+      transition-delay: 1s;
+      transition: transform .3s;
+    }
+
+    .box-3.visible {
+      transform: translateX(0);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="w-100 vh-100 bg-green flex justify-center items-center">
+    <div class="box w5 h5 bg-near-black"></div>
+  </div>
+  <div class="w-100 vh-100 bg-purple flex justify-center items-center">
+    <div class="box box-2 w5 h5 bg-near-black"></div>
+  </div>
+  <div class="w-100 vh-100 bg-light-blue flex justify-center items-center">
+    <div class="observe box box-3 w5 h5 bg-near-black"></div>
+  </div>
+
+  <script>
+    const opts = {
+      threshold: [0, 1]
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+      entry.target.classList.toggle('visible', entry.isIntersecting)
+      })
+    }, opts)
+    
+    Array.from(document.querySelectorAll('.box')).forEach(node => {
+      observer.observe(node)
+    })
+  </script>
+</body>
+</html>
